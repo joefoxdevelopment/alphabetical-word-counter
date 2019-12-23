@@ -2,8 +2,8 @@
 
 return [
     'http' => [
-        'base_uri' => 'https://github.com/dwyl/english-words/blob/master/',
-        'timeout'  => 10,
+        'base_uri' => 'https://raw.githubusercontent.com/dwyl/english-words/master/',
+        'timeout'  => 0,
     ],
     'file' => 'words_alpha.txt',
 ];

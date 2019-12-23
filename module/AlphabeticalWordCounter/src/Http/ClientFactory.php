@@ -22,11 +22,11 @@ class ClientFactory implements FactoryInterface
             ->isArray()
             ->notEmpty()
             ->notEmptyKey('base_uri')
-            ->notEmptyKey('timeout');
+            ->keyIsset('timeout');
 
         return new Client([
-            'base_uri' => $config['base_uri'],
-            'timeout'  => $config['timeout'],
+            'base_uri' => $config['http']['base_uri'],
+            'timeout'  => $config['http']['timeout'],
         ]);
     }
 }
