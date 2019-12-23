@@ -37,6 +37,11 @@ class CommandCollection
         return $this->commands[$name]->execute();
     }
 
+    public function getRegisteredCommandNames(): array
+    {
+        return array_keys($this->commands);
+    }
+
     private function assertCommandCanBeRegistered(string $name): void
     {
         Assert::that($name)->notEmpty();

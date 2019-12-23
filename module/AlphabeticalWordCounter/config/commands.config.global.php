@@ -1,5 +1,5 @@
 <?php
 
 return [
-    \AlphabeticalWordCounter\Console\Run::class,
+    \AlphabeticalWordCounter\Console\AlphabeticalWordCounter::class,
 ];

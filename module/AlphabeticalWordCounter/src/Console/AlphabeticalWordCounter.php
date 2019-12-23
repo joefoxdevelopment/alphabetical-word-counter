@@ -2,8 +2,10 @@
 
 namespace AlphabeticalWordCounter\Console;
 
-class Run extends AbstractCommand
+class AlphabeticalWordCounter extends AbstractCommand
 {
+    protected $name = 'alphabetical-word-counter';
+
     public function execute(): int {
         return 0;
     }

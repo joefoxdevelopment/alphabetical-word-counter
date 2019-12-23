@@ -26,7 +26,39 @@ try {
 }
 
 foreach ($commands as $command) {
-    $app->register($command);
+    $instance = null;
+
+    // Look for a factory to create the instance
+    if (class_exists($command . 'Factory')) {
+        $factoryName = $command . 'Factory';
+        $factory     = new $factoryName();
+        $instance    = $factory->createInstance();
+    } elseif (class_exists($command)) {
+        $instance = new $command();
+    }
+
+    if (null === $instance) {
+        echo sprintf('Unable to create instance of %s%s', $command, PHP_EOL);
+        continue;
+    }
+
+    $app->registerCommand($instance);
 }
 
-$app->run();
+$registered = $app->getRegisteredCommandNames();
+$name       = $argv[1];
+
+$exitCode = 0;
+if (!empty($name) && empty($registered[$name])) {
+    echo sprintf('Unable to find command with name: %s', $name) . PHP_EOL;
+    $exitCode = 1;
+    $name     = '';
+}
+
+if (empty($name)) {
+    echo 'Registered Commands: ' . PHP_EOL;
+    echo '    ' . implode(PHP_EOL . '    ', $registered);
+    exit($exitCode);
+}
+
+exit($app->runCommand($name));
