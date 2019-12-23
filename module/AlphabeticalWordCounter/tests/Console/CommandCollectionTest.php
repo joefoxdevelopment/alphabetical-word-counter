@@ -62,4 +62,12 @@ class CommandCollectionTest extends TestCase
         $this->collection->registerCommand($this->command->reveal(), 'test');
         $this->assertEquals(0, $this->collection->runCommand('test'));
     }
+
+    public function testGetRegisteredCommandNamesReturnsArray(): void
+    {
+        $this->collection->registerCommand($this->command->reveal(), 'test');
+        $this->collection->registerCommand($this->command->reveal(), 'test2');
+
+        $this->assertSame(['test', 'test2'], $this->collection->getRegisteredCommandNames());
+    }
 }

@@ -29,6 +29,7 @@ foreach ($commands as $command) {
     $instance = null;
 
     // Look for a factory to create the instance
+    // Use factories if there are any dependancies to inject into the implementation
     if (class_exists($command . 'Factory')) {
         $factoryName = $command . 'Factory';
         $factory     = new $factoryName();
