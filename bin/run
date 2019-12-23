@@ -1,0 +1,32 @@
+#! /usr/bin/env php
+<?php
+
+chdir(dirname(dirname(__FILE__)));
+
+require './vendor/autoload.php';
+
+use AlphabeticalWordCounter\Console\CommandCollection;
+use Assert\Assert;
+
+$commands = require 'module/AlphabeticalWordCounter/config/commands.config.global.php';
+$lazy     = Assert::lazy();
+$app      = new CommandCollection();
+
+foreach ($commands as $command) {
+    $lazy->that($command)
+         ->string()
+         ->notEmpty();
+}
+
+try {
+    $lazy->verifyNow();
+} catch (\Exception $e) {
+    echo $e->getMessage();
+    exit(1);
+}
+
+foreach ($commands as $command) {
+    $app->register($command);
+}
+
+$app->run();

@@ -14,12 +14,18 @@
     },
     "require-dev": {
         "phpspec/prophecy": "^1.10",
-        "phpmd/phpmd": "^2.7"
+        "phpmd/phpmd": "^2.7",
+        "squizlabs/php_codesniffer": "^3.5",
+        "phpunit/phpunit": "^7.5"
     },
     "autoload": {
-        "AlphabeticalWordCounter": "module/AlphabeticalWordCounter/src/AlphabeticalWordCounter"
+        "psr-4": {
+            "AlphabeticalWordCounter\\": "module/AlphabeticalWordCounter/src/"
+        }
     },
     "autoload-dev": {
-        "AlphabeticalWordCounterTest": "module/AlphabeticalWordCounter/tests/AlphabeticalWordCounterTest"
+        "psr-4": {
+            "AlphabeticalWordCounterTest\\": "module/AlphabeticalWordCounter/tests/"
+        }
     }
 }
