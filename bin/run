@@ -33,7 +33,7 @@ foreach ($commands as $command) {
     if (class_exists($command . 'Factory')) {
         $factoryName = $command . 'Factory';
         $factory     = new $factoryName();
-        $instance    = $factory->createInstance();
+        $instance    = $factory::createInstance();
     } elseif (class_exists($command)) {
         $instance = new $command();
     }
@@ -50,7 +50,8 @@ $registered = $app->getRegisteredCommandNames();
 $name       = $argv[1];
 
 $exitCode = 0;
-if (!empty($name) && empty($registered[$name])) {
+
+if (!empty($name) && !$app->hasCommand($name)) {
     echo sprintf('Unable to find command with name: %s', $name) . PHP_EOL;
     $exitCode = 1;
     $name     = '';
@@ -58,7 +59,7 @@ if (!empty($name) && empty($registered[$name])) {
 
 if (empty($name)) {
     echo 'Registered Commands: ' . PHP_EOL;
-    echo '    ' . implode(PHP_EOL . '    ', $registered);
+    echo '    ' . implode(PHP_EOL . '    ', $registered) . PHP_EOL . PHP_EOL;
     exit($exitCode);
 }
 
