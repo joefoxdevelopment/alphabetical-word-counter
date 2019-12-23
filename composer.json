@@ -7,5 +7,19 @@
             "email": "joefoxdevelopment@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "^7.1",
+        "beberlei/assert": "^3.2",
+        "guzzlehttp/guzzle": "^6.5.1"
+    },
+    "require-dev": {
+        "phpspec/prophecy": "^1.10",
+        "phpmd/phpmd": "^2.7"
+    },
+    "autoload": {
+        "AlphabeticalWordCounter": "module/AlphabeticalWordCounter/src/AlphabeticalWordCounter"
+    },
+    "autoload-dev": {
+        "AlphabeticalWordCounterTest": "module/AlphabeticalWordCounter/tests/AlphabeticalWordCounterTest"
+    }
 }
