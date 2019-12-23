@@ -1,0 +1,11 @@
+{
+    "name": "joefox/alphabetical-word-counter",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Joe Fox",
+            "email": "joefoxdevelopment@gmail.com"
+        }
+    ],
+    "require": {}
+}
