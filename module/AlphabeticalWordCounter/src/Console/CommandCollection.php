@@ -8,15 +8,26 @@ class CommandCollection
 {
     private $commands = [];
 
-    public function registerCommand(AbstractCommand $command, ?string $name): void
+    public function registerCommand(AbstractCommand $command, string $name = null): void
     {
         if (null === $name) {
             $name = $command->getName();
         }
 
-        $this->assertCommandRegistered($name);
+        $this->assertCommandCanBeRegistered($name);
 
-        $commands[$name] = $command;
+        $this->commands[$name] = $command;
+    }
+
+    public function hasCommand(string $name): bool
+    {
+        try {
+            $this->assertCommandRegistered($name);
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     public function runCommand(string $name): int
@@ -26,20 +37,14 @@ class CommandCollection
         return $this->commands[$name]->execute();
     }
 
-    public function hasCommand(string $name): bool
+    private function assertCommandCanBeRegistered(string $name): void
     {
-        try {
-            $this->assertCommandRegistered($name);
-        } catch (\Exception $e) {
-            return true;
-        }
-
-        return false;
+        Assert::that($name)->notEmpty();
+        Assert::that($this->commands)->keyNotExists($name);
     }
 
     private function assertCommandRegistered(string $name): void
     {
-        Assert::that($name)->notEmpty();
-        Assert::that($this->commands)->keyExists($name);
+        Assert::that($this->commands)->notEmptyKey($name);
     }
 }
